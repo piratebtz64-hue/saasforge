@@ -1,21 +1,19 @@
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
-import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
+'use client';
 
-export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/sign-in");
+import { DashboardSidebar } from '@/components/dashboard/DashboardSidebar';
+import { Toaster } from 'sonner';
 
-  const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).single();
-  const userRole = profile?.role || "free";
-
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen bg-background">
-      <DashboardSidebar userEmail={user.email || ""} userRole={userRole} />
-      <div className="flex-1 flex flex-col">
-        <main className="flex-1 p-6 md:p-8 lg:p-10">{children}</main>
+    <div className="min-h-screen bg-zinc-950 text-white">
+      <DashboardSidebar />
+      
+      <div className="lg:pl-72">
+        <main className="p-6 lg:p-10">
+          {children}
+        </main>
       </div>
+      <Toaster position="top-center" richColors closeButton />
     </div>
   );
 }
