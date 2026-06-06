@@ -1,0 +1,10 @@
+ @import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --primary: 263.4 70% 50.4%;
+  ... (full globals.css) 
